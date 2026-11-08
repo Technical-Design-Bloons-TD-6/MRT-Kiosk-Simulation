@@ -1,0 +1,129 @@
+﻿English,Chinese,Malay,Tamil
+Please Choose an Option,请选择服务,Sila pilih perkhidmatan,சேவையைத் தேர்ந்தெடுக்கவும்
+Purchase Single-Use Tickets,购买单程车票,Beli tiket sekali guna,ஒருமுறை பயணச் சீட்டுகளை வாங்கவும்
+Purchase Day Passes,购买一日通票,Beli pas harian,ஒருநாள் பயணச் சீட்டுகளை வாங்கவும்
+Top Up Transit Card,交通卡充值,Tambah nilai kad transit,பயண அட்டையில் பணம் சேர்க்கவும்
+Need assistance?,需要帮助吗？,Perlukan bantuan?,உதவி தேவையா?
+Go Back,返回,Kembali,பின்செல்
+Back / Cancel,返回 / 取消,Kembali / Batal,பின்செல் / ரத்துசெய்
+Return Home,返回首页,Kembali ke halaman utama,முகப்புக்குத் திரும்பு
+Return home,返回首页,Kembali ke halaman utama,முகப்புக்குத் திரும்பு
+Return,返回,Kembali,திரும்பு
+Confirm,确认,Sahkan,உறுதிசெய்
+Cancel Transaction,取消交易,Batalkan transaksi,பரிவர்த்தனையை ரத்துசெய்
+Enter Trip Details,输入行程资料,Masukkan butiran perjalanan,பயண விவரங்களை உள்ளிடவும்
+Your Trip Details,您的行程资料,Butiran perjalanan anda,உங்கள் பயண விவரங்கள்
+Start Location,起点站,Stesen mula,தொடக்க நிலையம்
+Destination,终点站,Destinasi,சேருமிடம்
+Confirm Trip,确认行程,Sahkan perjalanan,பயணத்தை உறுதிசெய்
+Select Trip Type,选择行程类型,Pilih jenis perjalanan,பயண வகையைத் தேர்ந்தெடு
+One-Way,单程,Sehala,ஒருவழிப் பயணம்
+Round-Trip,往返,Pergi balik,இருவழிப் பயணம்
+Select Ticket Qty.,选择车票数量,Pilih bilangan tiket,பயணச் சீட்டு எண்ணிக்கை
+Total Fare,总票价,Jumlah tambang,மொத்தக் கட்டணம்
+Total fare,总票价,Jumlah tambang,மொத்தக் கட்டணம்
+Choose Payment Method,选择付款方式,Pilih kaedah bayaran,கட்டண முறையைத் தேர்ந்தெடு
+Pay with Card,银行卡付款,Bayar dengan kad,அட்டை மூலம் செலுத்து
+Pay with Cash,现金付款,Bayar dengan wang tunai,ரொக்கமாகச் செலுத்து
+Pay with QR Code,二维码付款,Bayar dengan kod QR,QR குறியீடு மூலம் செலுத்து
+Card,银行卡,Kad,அட்டை
+Cash,现金,Wang tunai,ரொக்கம்
+QR Payment,二维码付款,Bayaran QR,QR கட்டணம்
+Cash inserted,已投入现金,Wang dimasukkan,செலுத்திய ரொக்கம்
+Remaining,尚需支付,Baki perlu dibayar,செலுத்த வேண்டிய தொகை
+Insert notes to pay,请放入纸币,Masukkan wang kertas,பணத்தாள்களைச் செலுத்தவும்
+"Accepted notes: $5, $10, $50",接受纸币：$5、$10、$50,"Wang diterima: $5, $10, $50","ஏற்கப்படும் பணத்தாள்கள்: $5, $10, $50"
+Tap or insert your card to pay,请感应或插入银行卡,Sentuh atau masukkan kad,அட்டையைத் தொடவும் அல்லது செருகவும்
+Scan the QR code to pay,扫描二维码付款,Imbas kod QR untuk membayar,செலுத்த QR குறியீட்டை ஸ்கேன் செய்யவும்
+Cards accepted,接受的银行卡,Kad yang diterima,ஏற்கப்படும் அட்டைகள்
+Merchants accepted,支持的支付平台,Penyedia yang diterima,ஏற்கப்படும் சேவைகள்
+Transaction Successful,交易成功,Transaksi berjaya,பரிவர்த்தனை வெற்றி
+Transaction Failed,交易失败,Transaksi gagal,பரிவர்த்தனை தோல்வி
+Card Payment Success,付款成功,Bayaran berjaya,கட்டணம் செலுத்தப்பட்டது
+Card Payment Failed,付款失败,Bayaran gagal,கட்டணம் செலுத்தப்படவில்லை
+Your transaction could not be completed.,无法完成您的交易。,Transaksi anda tidak dapat diselesaikan.,உங்கள் பரிவர்த்தனையை முடிக்க முடியவில்லை.
+Try Another Method,尝试其他方式,Cuba kaedah lain,வேறு முறையை முயற்சிக்கவும்
+Print Receipt,打印收据,Cetak resit,ரசீதை அச்சிடு
+Please remember to collect your ticket(s).,请领取您的车票。,Sila ambil tiket anda.,உங்கள் பயணச் சீட்டுகளை எடுத்துக்கொள்ளவும்.
+Check Transit Card Balance,查询交通卡余额,Semak baki kad transit,பயண அட்டை இருப்பைச் சரிபார்
+Current Card Balance,当前余额,Baki kad semasa,தற்போதைய அட்டை இருப்பு
+Total card balance,卡内总余额,Jumlah baki kad,மொத்த அட்டை இருப்பு
+Balance after Top-Up,充值后余额,Baki selepas tambah nilai,பணம் சேர்த்தபின் இருப்பு
+Choose Top-Up Amount,选择充值金额,Pilih jumlah tambah nilai,சேர்க்கும் தொகையைத் தேர்ந்தெடு
+Place your card on the reader,请将卡放在读卡器上,Letakkan kad pada pembaca,அட்டையை வாசிப்பானில் வைக்கவும்
+Keep your transit card on the reader,请勿移开交通卡,Biarkan kad pada pembaca,அட்டையை வாசிப்பானிலேயே வைக்கவும்
+Select Date To Activate,选择启用日期,Pilih tarikh pengaktifan,செயல்படுத்தும் தேதியைத் தேர்ந்தெடு
+Your Day Pass Details,您的一日通票资料,Butiran pas harian anda,உங்கள் ஒருநாள் சீட்டு விவரங்கள்
+Ticket Type,车票类型,Jenis tiket,சீட்டு வகை
+Day Pass,一日通票,Pas harian,ஒருநாள் பயணச் சீட்டு
+Activates on,启用日期,Aktif pada,செயல்படும் தேதி
+Expires at,到期时间,Tamat pada,காலாவதி நேரம்
+Please select the date you wish to activate your day pass,请选择一日通票的启用日期,Pilih tarikh pengaktifan pas harian,ஒருநாள் சீட்டைச் செயல்படுத்தும் தேதியைத் தேர்ந்தெடுக்கவும்
+Day passes allow for unlimited travel along our transit lines for one day. Day passes expire at midnight after activation. Please select the date you wish to activate your day pass on.,一日通票可在一天内无限次乘车，并于启用当天午夜到期。请选择启用日期。,Pas harian membolehkan perjalanan tanpa had selama sehari dan tamat pada tengah malam. Pilih tarikh pengaktifan.,ஒருநாள் சீட்டு மூலம் நாள் முழுவதும் வரம்பின்றிப் பயணிக்கலாம். செயல்படுத்திய நாளின் நள்ளிரவில் காலாவதியாகும். தேதியைத் தேர்ந்தெடுக்கவும்.
+Searching from Map,从地图选择,Pilih pada peta,வரைபடத்தில் தேர்ந்தெடு
+Edit start,更改起点,Ubah stesen mula,தொடக்கத்தை மாற்று
+Edit destination,更改终点,Ubah destinasi,சேருமிடத்தை மாற்று
+Swap direction,交换起终点,Tukar arah,திசையை மாற்று
+Choose start,选择起点,Pilih stesen mula,தொடக்கத்தைத் தேர்ந்தெடு
+Choose destination,选择终点,Pilih destinasi,சேருமிடத்தைத் தேர்ந்தெடு
+Change payment,更改付款方式,Tukar kaedah bayaran,கட்டண முறையை மாற்று
+Review order,查看订单,Semak pesanan,ஆர்டரைச் சரிபார்
+Shift,大小写,Huruf besar/kecil,பெரிய/சிறிய எழுத்து
+Space,空格,Ruang,இடைவெளி
+Backspace,退格,Padam aksara,எழுத்தை அழி
+Clear,清空,Kosongkan,அனைத்தையும் அழி
+Clear search,清空搜索,Kosongkan carian,தேடலை அழி
+Enter,确认,Sahkan,உறுதிசெய்
+Cancel,取消,Batal,ரத்துசெய்
+All lines,所有线路,Semua laluan,அனைத்துப் பாதைகள்
+Assistance,帮助,Bantuan,உதவி
+Exit kiosk,退出售票机,Keluar kiosk,வெளியேறு
+Map view,站点选择,Pilih stesen,நிலையத் தேர்வு
+Select matching station,选择匹配的站点,Pilih stesen sepadan,பொருந்தும் நிலையத்தைத் தேர்ந்தெடு
+Mon,周一,Isn,திங்கள்
+Tue,周二,Sel,செவ்வாய்
+Wed,周三,Rab,புதன்
+Thu,周四,Kha,வியாழன்
+Fri,周五,Jum,வெள்ளி
+Sat,周六,Sab,சனி
+Sun,周日,Ahd,ஞாயிறு
+More,更多,Lagi,மேலும்
+Video,视频,Video,காணொளி
+Confirm date,确认日期,Sahkan tarikh,தேதியை உறுதிசெய்
+Confirm journey,确认行程,Sahkan perjalanan,பயணத்தை உறுதிசெய்
+Pay Card,银行卡付款,Bayar dengan kad,அட்டை மூலம் செலுத்து
+Pay Cash,现金付款,Bayar tunai,ரொக்கமாகச் செலுத்து
+Pay QR,二维码付款,Bayar dengan QR,QR மூலம் செலுத்து
+Tap card,感应银行卡,Sentuh kad,அட்டையைத் தொடவும்
+Tap transit card,感应交通卡,Sentuh kad transit,பயண அட்டையைத் தொடவும்
+Approve QR,模拟确认付款,Simulasi lulus bayaran,கட்டணத்தை உறுதிசெய்
+Simulate decline,模拟付款失败,Simulasi bayaran gagal,கட்டணத் தோல்வியை உருவகப்படுத்து
+Collect change / item,领取零钱和物品,Ambil baki / barang,மீதிப்பணம் / பொருளை எடுக்கவும்
+Print demo receipt,打印模拟收据,Cetak resit simulasi,மாதிரி ரசீதை அச்சிடு
+Resume,继续,Sambung,தொடரவும்
+Previous month,上个月,Bulan sebelumnya,முந்தைய மாதம்
+Next month,下个月,Bulan berikutnya,அடுத்த மாதம்
+Quantity +,数量 +,Bilangan +,எண்ணிக்கை +
+Quantity -,数量 -,Bilangan -,எண்ணிக்கை -
+Top up $5,充值 $5,Tambah nilai $5,$5 சேர்க்கவும்
+Top up $10,充值 $10,Tambah nilai $10,$10 சேர்க்கவும்
+Top up $20,充值 $20,Tambah nilai $20,$20 சேர்க்கவும்
+Top up $30,充值 $30,Tambah nilai $30,$30 சேர்க்கவும்
+Top up $50,充值 $50,Tambah nilai $50,$50 சேர்க்கவும்
+Top up $100,充值 $100,Tambah nilai $100,$100 சேர்க்கவும்
+Insert $5,投入 $5,Masukkan $5,$5 செலுத்தவும்
+Insert $10,投入 $10,Masukkan $10,$10 செலுத்தவும்
+Insert $50,投入 $50,Masukkan $50,$50 செலுத்தவும்
+Payment failed,付款失败,Bayaran gagal,கட்டணம் செலுத்தப்படவில்லை
+Payment successful,付款成功,Bayaran berjaya,கட்டணம் செலுத்தப்பட்டது
+Please collect your purchase / transit card and any change.,请领取您的车票或交通卡以及零钱。,Sila ambil pembelian / kad transit dan baki anda.,உங்கள் சீட்டு / பயண அட்டையையும் மீதிப்பணத்தையும் எடுத்துக்கொள்ளவும்.
+Use Return Home when finished.,完成后请选择返回首页。,Pilih Kembali ke halaman utama apabila selesai.,முடிந்ததும் முகப்புக்குத் திரும்பவும்.
+"Assistance requested (simulation).
+
+Use Resume to continue your transaction.","已模拟请求帮助。
+
+选择继续以返回交易。","Bantuan diminta (simulasi).
+
+Pilih Sambung untuk meneruskan transaksi.","உதவி கோரப்பட்டது (உருவகப்படுத்தல்).
+
+பரிவர்த்தனையைத் தொடர தொடரவும் என்பதைத் தேர்ந்தெடுக்கவும்."
