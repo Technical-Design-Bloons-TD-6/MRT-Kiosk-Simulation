@@ -6,14 +6,14 @@ Public transit ticket kiosk prototype for Technical Design Methods, Part III. Re
 
 | Tool | Version |
 |---|---|
-| Unreal Engine | 5.7.4 |
+| Unreal Engine | 5.8.4 |
 | Visual Studio | 2022, 17.14 or later, with the "Game development with C++" workload |
 | Git | Git for Windows (latest), includes Git LFS |
 | Project file | `Team01_Kiosk.uproject` |
 
 Do not open the project in a different engine version. Opening it in a newer one upgrades the files, and you cannot go back.
 
-The project is C++, but we build everything with Blueprints and widgets. Nobody needs to write C++.
+The screens and kiosk flows are edited in Blueprints and widgets. The reusable map control is implemented in C++ under `Source/Team01_Kiosk/RailRouteMap`; its station data and artwork are editable in `DA_KioskRailNetwork`.
 
 ## 2. First-time setup
 
@@ -22,7 +22,9 @@ The project is C++, but we build everything with Blueprints and widgets. Nobody 
 3. Pick an **empty folder with a short path**, for example `C:\Dev\MRT-Kiosk-Simulation`. Long paths cause Unreal build errors.
 4. Right-click `Team01_Kiosk.uproject` and choose "Generate Visual Studio project files" (on Windows 11, use Shift + right-click if you don't see it).
 5. Double-click the `.uproject`. The first open compiles for a few minutes. Say yes if it asks to rebuild.
-6. Check it worked: Help, About Unreal Editor should say 5.7.4. The current editor startup map is `Content/Maps/L_Island`.
+
+Visual Studio may generate a `.slnx` XML solution instead of `.sln`. Both are generated IDE files and are ignored by Git; open `Team01_Kiosk.uproject` to launch the kiosk project.
+6. Check it worked: Help, About Unreal Editor should say 5.8.4. The current editor startup map is `Content/Maps/L_Island`.
 
 ## 3. Basics
 
@@ -91,9 +93,15 @@ All page names below have the prefix `WBP_Runtime_`:
 | `JourneyMap`, `DestinationMap`, `JourneySelected` | Map-screen headers, start/destination rows and confirmation layout. See the map logic notes below for zoom and clickable stations. |
 | `SingleUseCheckout` | Start/destination details, one-way/round-trip choices, route summary, quantity, fare and payment choices. |
 | `CardPayment`, `QRPayment` | Payment instructions, accepted-payment logos, fare and cancel button layout. |
-| `CashPayment`, `CashPaymentProgress`, `CashPaymentComplete` | Cash instructions, accepted notes, inserted cash, remaining amount and change. These are separate pages; check each state. |
+| `CashPayment`, `CashPaymentProgress`, `CashPaymentComplete` | Cash instructions, accepted notes, inserted cash and remaining amount. These are separate pages; check each state. |
 | `PaymentSuccessful`, `PaymentFailed` | Result messages, receipt, retry and return-home controls. |
 | `RequestAssistance` | Assistance screen layout. |
+
+The payment illustrations use editable **Designer > Animations** tracks: `PaymentExample_CardTapThenInsert` plays tap followed by insertion in one shared illustration area, `PaymentExample_InsertCash` feeds a vertically oriented note short edge first into the slot on the three cash pages, and `PaymentExample_TapPhone` moves the phone to the reader. Each sequence loops while its page is active. The page function `UpdatePaymentExample` and the main widget's `RefreshPaymentExamples` start/stop playback, so returning to a page starts its example again. Keep `Canvas_CashNoteClip` in place when editing the cash illustration; it hides the note as it enters the slot. The static `Img_image_31` overlay is hidden because its artwork contains a second note. Payment instructions, summary columns and cancel controls share a centered layout.
+
+The card page also contains `Canvas_CardProcessingOverlay`, with the transaction-in-progress message, card-removal reminder and animated `CardProcessingSpinner`. `BeginCardProcessing` starts a 2.4-second simulated processing period before `CompleteCardProcessing` runs the existing approval flow. `RefreshCardProcessing` dismisses the overlay and cancels its timer when leaving the card page. The four `Translate_..._CardPayment` functions supply its translated labels.
+
+Cash payment keeps accepting notes after the fare is covered. `CashCents` continues increasing and Remaining is clamped to zero. `BeginCashSettlement` resets a two-second timer on each sufficient note; `CompleteCashSettlement` finishes payment after that quiet period. Leaving cash payment clears the timer through `RefreshCashSettlement`. The Change summary row is hidden; the existing hardware change/refund accounting remains in place.
 
 ### Where the other kiosk parts live
 
@@ -147,20 +155,27 @@ The kiosk supports **English, Chinese, Malay and Tamil**. In `WBP_KioskInteracti
 
 CSV files are source data, not automatically live UI updates. In particular, editing the station or translation CSV alone does not rebuild the existing Blueprint map targets or translation graphs.
 
-### Map zoom and station selection
+### Map routing, zoom and station selection
 
-Map behavior is in **`WBP_KioskInteractive`**, alongside the page layouts:
+New sessions start at **Punggol Coast**, with no destination preselected. `InitializeSession` in `WBP_KioskInteractive` sets the origin. Station names use one fixed font and size immediately after their MRT/LRT badges. `CompactStationRow` compacts the code badges to leave room for interchange names without shrinking individual labels. Start/destination captions keep their language font at a consistent size and wrap when needed.
 
-| Function / widget | Purpose |
+`RouteMap`, inside the main widget's `InteractiveRailMap` panel, displays the existing Figma artwork. Choosing a destination highlights the recommended route in line colours and fades the rest of the network. Start/end markers are yellow. Changing either endpoint fits the route into the viewport. Endpoint and transfer labels take priority; additional station names appear as space allows when zooming. Repeated UI refreshes retain the user's manual view.
+
+Right-button dragging captures one pointer and applies its local movement to both axes together. Wheel zoom stays centred on the pointer. `MapZoomIn`, `MapZoomOut` and `MapFit` call this same control, so rendering and station hit testing always share the same transform. The old nested scroll boxes and fixed zoom layouts remain in the Blueprint for reference but are hidden and are no longer used for map interaction.
+
+| Location | Purpose |
 |---|---|
-| `WheelZoom`, `MapZoomIn`, `MapZoomOut`, `MapFit` | Mouse-wheel routing, zoom steps and reset-to-fit behavior. |
-| `MapZoomLevel`, `ApplyMapZoom` | Current zoom level and selection of the corresponding layout. |
-| `ZoomLevel_0` through `ZoomLevel_3` | Map dimensions and artwork positioning for each zoom level. The current map widths are **992, 1440, 2000 and 3960**, respectively, in widget layout units. |
-| `Zoom0Targets_...` through `Zoom3Targets_...` | Position and size of station click targets at each zoom level. Update these together with map dimensions so clicks remain aligned. |
-| `MapContentSize`, `MapArtwork`, `MapHit_Station_...` | Runtime map content size, map image and station hit areas. |
-| `MapApplyStation`, `MapConfirm`, `RefreshMap` | Applying a selected station, confirming the trip and refreshing map state. |
+| `Source/Team01_Kiosk/RailRouteMap.h` / `.cpp` | Map rendering, pointer handling, route fitting, station hit testing and routing. |
+| `Content/Data/Kiosk/DA_KioskRailNetwork` | Editable, packaged network: 180 stations, positions, connections, line colours, bend points and artwork. |
+| `Content/Data/Kiosk/KioskMapStations.csv` | Source station coordinates in the original artwork's 1600 x 1600 design space. |
+| `Content/Data/Kiosk/KioskMapConnections.csv` | Source connections, colours, bend points and estimated traversal costs. |
+| `RefreshRouteMap`, `MapApplyStation`, `MapConfirm` | Passing journey state to the map, accepting station clicks and confirming the trip. |
 
-When changing zoom, check every level, both scroll directions, reset-to-fit and station selection. Enlarging only the image can leave the clickable station targets behind.
+Routes minimise estimated travel cost across the project's existing station snapshot, with two minutes per connection and a four-minute line-change penalty. Incoming line is part of the search state, so interchange choices are compared correctly. These are prototype estimates, not live service times. The network excludes future stations that are present only in the background artwork. Edit `DA_KioskRailNetwork` to change runtime data; the CSV files document its source and do not automatically reimport it.
+
+`StationQuery` is directly editable in the destination strip of DestinationMap and JourneyMap. `OpenMapSearchResults` preserves typed text when showing filtered station results. Both complete station fields, including their search icons, open search on every map screen. The journey details screens hide the inline input but keep their search fields and map stations clickable. Selecting another station updates the journey and fits the new route; panning and zooming remain available.
+
+The automation tests `Kiosk.RailMap.TransferAwareRouting` and `Kiosk.RailMap.DiagonalPointerMovement` cover interchange costs, invalid/disconnected endpoints, reverse routes, diagonal movement at non-unit UI scale, release and cursor-anchored zoom. Also verify the map in PIE with real station selections and all four languages.
 
 ### Before handing off a kiosk change
 
