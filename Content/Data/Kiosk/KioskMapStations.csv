@@ -1,0 +1,181 @@
+Name,StationName,Codes,MapX,MapY
+Station_000,Admiralty,NS10,576,386
+Station_001,Aljunied,EW9,1047,886
+Station_002,Ang Mo Kio,NS16,781,557
+Station_003,Bakau,SE3,1144,608
+Station_004,Bangkit,BP9,447,432
+Station_005,Bartley,CC12,997,693
+Station_006,Bayfront,CE1 / DT16,977,1133
+Station_007,Bayshore,TE29,1316,896
+Station_008,Beauty World,DT5,493,634
+Station_009,Bedok,EW5,1241,725
+Station_010,Bedok North,DT29,1169,686
+Station_011,Bedok Reservoir,DT30,1221,671
+Station_012,Bencoolen,DT21,895,958
+Station_013,Bendemeer,DT23,975,879
+Station_014,Bishan,NS17 / CC15,782,619
+Station_015,Boon Keng,NE9,828,778
+Station_016,Boon Lay,EW27,179,881
+Station_017,Botanic Gardens,CC19 / DT9,571,740
+Station_018,Braddell,NS18,781,650
+Station_019,Bras Basah,CC2,883,996
+Station_020,Bright Hill,TE7,650,554
+Station_021,Buangkok,NE15,1030,558
+Station_022,Bugis,EW12 / DT14,949,984
+Station_023,Bukit Batok,NS2,333,831
+Station_024,Bukit Gombak,NS3,333,754
+Station_025,Bukit Panjang,DT1 / BP6,450,514
+Station_026,Buona Vista,EW21 / CC22,513,908
+Station_027,Caldecott,CC17 / TE9,657,661
+Station_028,Canberra,NS12,694,386
+Station_029,Cashew,DT2,486,528
+Station_030,Changi Airport,CG2,1473,775
+Station_031,Cheng Lim,SW1,1041,480
+Station_032,Chinatown,NE4 / DT19,746,1022
+Station_033,Chinese Garden,EW25,273,908
+Station_034,Choa Chu Kang,NS4 / BP1,333,676
+Station_035,City Hall,NS25 / EW13,876,1059
+Station_036,Clarke Quay,NE5,767,995
+Station_037,Clementi,EW23,404,908
+Station_038,Commonwealth,EW20,556,937
+Station_039,Compassvale,SE1,1124,563
+Station_040,Coral Edge,PE3,1185,538
+Station_041,Cove,PE1,1153,499
+Station_042,Dakota,CC8,1094,902
+Station_043,Damai,PE7,1181,479
+Station_044,Dhoby Ghaut,NS24 / NE6 / CC1,790,953
+Station_045,Dover,EW22,455,908
+Station_046,Downtown,DT17,917,1152
+Station_047,Esplanade,CC3,946,1059
+Station_048,Eunos,EW7,1130,803
+Station_049,Expo,CG1 / DT35,1403,775
+Station_050,Fajar,BP10,425,420
+Station_051,Farmway,SW2,1024,464
+Station_052,Farrer Park,NE8,828,819
+Station_053,Farrer Road,CC20,537,798
+Station_054,Fernvale,SW5,974,459
+Station_055,Fort Canning,DT20,743,973
+Station_056,Gardens by the Bay,TE22,1077,1133
+Station_057,Geylang Bahru,DT24,1008,848
+Station_058,Great World,TE15,658,893
+Station_059,Gul Circle,EW30,155,768
+Station_060,HarbourFront,NE1 / CC29,679,1175
+Station_061,Havelock,TE16,658,935
+Station_062,Haw Par Villa,CC25,538,1028
+Station_063,Hillview,DT3,493,563
+Station_064,Holland Village,CC21,520,852
+Station_065,Hougang,NE14,999,588
+Station_066,Hume,DT4,493,599
+Station_067,Jalan Besar,DT22,930,925
+Station_068,Jelapang,BP12,395,452
+Station_069,Joo Koon,EW29,155,807
+Station_070,Jurong East,NS1 / EW24,332,909
+Station_071,Kadaloor,PE5,1218,511
+Station_072,Kaki Bukit,DT28,1137,717
+Station_073,Kallang,EW10,1017,917
+Station_074,Kangkar,SE4,1110,606
+Station_075,Katong Park,TE24,1170,1042
+Station_076,Keat Hong,BP3,424,615
+Station_077,Kembangan,EW6,1172,762
+Station_078,Kent Ridge,CC24,525,990
+Station_079,Khatib,NS14,781,458
+Station_080,King Albert Park,DT6,493,669
+Station_081,Kovan,NE13,972,617
+Station_082,Kranji,NS7,333,489
+Station_083,Kupang,SW3,1010,448
+Station_084,Labrador Park,CC27,589,1105
+Station_085,Lakeside,EW26,220,905
+Station_086,Lavender,EW11,986,949
+Station_087,Layar,SW6,981,478
+Station_088,Lentor,TE5,586,481
+Station_089,Little India,NE7 / DT12,831,863
+Station_090,Lorong Chuan,CC14,868,626
+Station_091,MacPherson,CC10 / DT26,1067,784
+Station_092,Marina Bay,NS27 / CE2 / TE20,899,1167
+Station_093,Marina South Pier,NS28,927,1206
+Station_094,Marine Parade,TE26,1230,982
+Station_095,Marine Terrace,TE27,1260,953
+Station_096,Marsiling,NS8,356,415
+Station_097,Marymount,CC16,709,635
+Station_098,Mattar,DT25,1038,816
+Station_099,Maxwell,TE18,759,1085
+Station_100,Mayflower,TE6,617,513
+Station_101,Meridian,PE2,1168,520
+Station_102,Mountbatten,CC7,1091,946
+Station_103,Napier,TE12,658,780
+Station_104,Newton,NS21 / DT11,738,783
+Station_105,Nibong,PW5,1051,405
+Station_106,Nicoll Highway,CC5,1066,1035
+Station_107,Novena,NS20,755,746
+Station_108,Oasis,PE6,1198,494
+Station_109,one-north,CC23,516,950
+Station_110,Orchard,NS22 / TE14,667,850
+Station_111,Orchard Boulevard,TE13,658,815
+Station_112,Outram Park,EW16 / NE3 / TE17,705,1059
+Station_113,Pasir Panjang,CC26,560,1069
+Station_114,Pasir Ris,EW1,1338,618
+Station_115,Paya Lebar,EW8 / CC9,1087,848
+Station_116,Pending,BP8,453,451
+Station_117,Petir,BP7,442,470
+Station_118,Phoenix,BP5,424,538
+Station_119,Pioneer,EW28,158,845
+Station_120,Potong Pasir,NE10,854,735
+Station_121,Promenade,CC4 / DT15,1030,1081
+Station_122,Punggol,NE17 / PTC,1132,457
+Station_123,Punggol Coast,NE18,1158,430
+Station_124,Punggol Point,PW3,1082,379
+Station_125,Queenstown,EW19,583,963
+Station_126,Raffles Place,NS26 / EW14,876,1102
+Station_127,Ranggung,SE5,1094,588
+Station_128,Redhill,EW18,615,994
+Station_129,Renjong,SW8,1011,507
+Station_130,Riviera,PE4,1215,537
+Station_131,Rochor,DT13,872,904
+Station_132,Rumbia,SE2,1140,579
+Station_133,Sam Kee,PW1,1111,410
+Station_134,Samudera,PW4,1053,379
+Station_135,Segar,BP11,399,433
+Station_136,Sembawang,NS11,634,386
+Station_137,Sengkang,NE16 / STC,1059,530
+Station_138,Senja,BP13,407,470
+Station_139,Serangoon,NE12 / CC13,935,651
+Station_140,Shenton Way,TE19,831,1153
+Station_141,Siglap,TE28,1289,923
+Station_142,Simei,EW3,1338,698
+Station_143,Sixth Avenue,DT7,495,706
+Station_144,Somerset,NS23,714,897
+Station_145,Soo Teck,PW7,1082,432
+Station_146,South View,BP2,424,653
+Station_147,Springleaf,TE4,554,448
+Station_148,Stadium,CC6,1080,993
+Station_149,Stevens,DT10 / TE11,658,740
+Station_150,Sumang,PW6,1065,418
+Station_151,Tai Seng,CC11,1036,733
+Station_152,Tongkang,SW7,998,493
+Station_153,Tampines,EW2 / DT32,1338,655
+Station_154,Tampines East,DT33,1403,699
+Station_155,Tampines West,DT31,1276,671
+Station_156,Tan Kah Kee,DT8,512,729
+Station_157,Tanah Merah,EW4,1330,725
+Station_158,Tanjong Katong,TE25,1201,1012
+Station_159,Tanjong Pagar,EW15,747,1123
+Station_160,Tanjong Rhu,TE23,1140,1071
+Station_161,Teck Whye,BP4,424,576
+Station_162,Telok Ayer,DT18,834,1103
+Station_163,Telok Blangah,CC28,626,1138
+Station_164,Thanggam,SW4,987,445
+Station_165,Tiong Bahru,EW17,648,1026
+Station_166,Toa Payoh,NS19,781,694
+Station_167,Tuas Crescent,EW31,155,730
+Station_168,Tuas Link,EW33,155,652
+Station_169,Tuas West Road,EW32,155,691
+Station_170,Ubi,DT27,1105,749
+Station_171,Upper Changi,DT34,1403,730
+Station_172,Upper Thomson,TE8,657,605
+Station_173,Woodlands,NS9 / TE2,494,386
+Station_174,Woodlands North,TE1,453,342
+Station_175,Woodlands South,TE3,522,415
+Station_176,Woodleigh,NE11,893,694
+Station_177,Yew Tee,NS5,333,580
+Station_178,Yio Chu Kang,NS15,781,502
+Station_179,Yishun,NS13,755,410
