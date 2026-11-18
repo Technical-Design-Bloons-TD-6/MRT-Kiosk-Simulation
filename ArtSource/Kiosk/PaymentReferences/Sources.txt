@@ -1,0 +1,10 @@
+Payment prop references
+
+The ticket, day pass, bank card, $5 note and vector EZ-Link card reuse the existing Figma exports under Content/UI/Kiosk. The ticket artwork is T_Ticketing_SingleUse. The bank card is T_Figma_47595c87ea19. The EZ-Link card is Canvas_Group_145 in WBP_Runtime_TransitCardBalance.
+
+SGD10.jpg and SGD50.jpg were downloaded on 17 November 2026 from the Monetary Authority of Singapore's Circulation Currency: Notes page:
+https://www.mas.gov.sg/currency/circulation-currency/circulation-currency-notes
+https://www.mas.gov.sg/-/media/mas/currency-new/resized-portrait-series-note-images-with-specimen-label/portrait-10-front-polymer.jpg?h=351px&hash=5AC7E63450003D626FF1A76D44A5C82F&w=714px
+https://www.mas.gov.sg/-/media/mas/currency-new/resized-portrait-series-note-images-with-specimen-label/portrait-50-front.jpg?h=328px&hash=E190318F9B40EB687B57BD41CE67EB1F&w=714px
+
+The downloaded reference images retain the original SPECIMEN label. They are used as small in-game demonstration props.
