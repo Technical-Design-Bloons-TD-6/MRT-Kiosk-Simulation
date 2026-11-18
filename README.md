@@ -7,24 +7,21 @@ Public transit ticket kiosk prototype for Technical Design Methods, Part III. Re
 | Tool | Version |
 |---|---|
 | Unreal Engine | 5.8.4 |
-| Visual Studio | 2022, 17.14 or later, with the "Game development with C++" workload |
+| Visual Studio | Not required to edit or run the Blueprint kiosk |
 | Git | Git for Windows (latest), includes Git LFS |
 | Project file | `Team01_Kiosk.uproject` |
 
 Do not open the project in a different engine version. Opening it in a newer one upgrades the files, and you cannot go back.
 
-The screens and kiosk flows are edited in Blueprints and widgets. The reusable map control is implemented in C++ under `Source/Team01_Kiosk/RailRouteMap`; its station data and artwork are editable in `DA_KioskRailNetwork`.
+The kiosk is implemented in editable Blueprint graphs and UMG widgets, including the route map, camera, physical interactions, payment animations and collection. The project does not require a custom C++ runtime module. Start with `Content/UI/Kiosk/Blueprint/` for the shared behavior and `Content/UI/Kiosk/Interaction/Pages/` for screen layouts.
 
 ## 2. First-time setup
 
 1. Install the versions above. Run `git lfs install` once in a terminal.
 2. In GitHub Desktop: File, Clone repository, URL tab, then enter `https://github.com/Technical-Design-Bloons-TD-6/MRT-Kiosk-Simulation`.
 3. Pick an **empty folder with a short path**, for example `C:\Dev\MRT-Kiosk-Simulation`. Long paths cause Unreal build errors.
-4. Right-click `Team01_Kiosk.uproject` and choose "Generate Visual Studio project files" (on Windows 11, use Shift + right-click if you don't see it).
-5. Double-click the `.uproject`. The first open compiles for a few minutes. Say yes if it asks to rebuild.
-
-Visual Studio may generate a `.slnx` XML solution instead of `.sln`. Both are generated IDE files and are ignored by Git; open `Team01_Kiosk.uproject` to launch the kiosk project.
-6. Check it worked: Help, About Unreal Editor should say 5.8.4. The current editor startup map is `Content/Maps/L_Island`.
+4. Double-click `Team01_Kiosk.uproject`. Unreal may prepare shaders on first open. No project DLL rebuild is needed.
+5. Check it worked: Help, About Unreal Editor should say 5.8.4. The current editor startup map is `Content/Maps/L_Island`.
 
 ## 3. Basics
 
@@ -113,7 +110,7 @@ Paths in this table are relative to the project root. In Unreal, `Content/` is s
 | `Content/UI/Kiosk/Interaction/BP_KioskTerminal` | Kiosk actor and the connection between the player, kiosk screen and simulated hardware. |
 | `Content/UI/Kiosk/Interaction/WBP_KioskInteractPrompt` | Prompt shown when interacting with the kiosk. |
 | `Content/UI/Kiosk/Interaction/WBP_KioskHardware` | Simulated reader, cash-slot and output controls. |
-| `Content/UI/Kiosk/Interaction/BP_KioskInventory` and `WBP_PlayerInventory` | Inventory behavior and its on-screen presentation, including held cards, phone, cash and collected items. |
+| `Content/UI/Kiosk/Interaction/BP_KioskInventory` and `WBP_PlayerInventory` | Legacy record storage for collected documents. The inventory HUD, equip keys and held-item menu are no longer used; physical actions are automatic. |
 | `Content/UI/Kiosk/Interaction/BP_KioskDocument` | Ticket/receipt document actor. |
 | `Content/UI/Kiosk/Interaction/BP_TicketValidator` | Ticket-validation actor and behavior. |
 | `Content/UI/Kiosk/Interaction/Props/` | Materials for cards, notes, tickets, receipts and device housings. |
@@ -148,7 +145,7 @@ The kiosk supports **English, Chinese, Malay and Tamil**. In `WBP_KioskInteracti
 
 | File / asset in `Content/Data/Kiosk/` | Purpose and editing notes |
 |---|---|
-| `KioskDemoData.csv` / `DT_KioskDemoData` | Demo values such as `SingleFare`, `DayPassFare` and `InitialBalance`. The `Cents` column uses whole cents: `211` means `$2.11`. After editing the CSV, reimport the Data Table and verify the transaction in play. |
+| `KioskDemoData.csv` / `DT_KioskDemoData` | Demo values such as `SingleFare`, `DayPassFare` and `InitialBalance`. The `Cents` column stores cents internally. Runtime values are rounded to the nearest whole dollar; use multiples of 100 (for example `200` for `$2`) to set an exact fare. After editing the CSV, reimport the Data Table and verify the transaction in play. |
 | `ST_KioskDemoRow` | Row structure for the demo Data Table (`Value` and `Cents`). Changing the structure can affect Blueprint readers. |
 | `KioskStations.csv` | Station names, station codes and lines. Keep station IDs consistent with the runtime map targets and station-selection logic. |
 | `KioskTranslations.csv` | Source text with English, Chinese, Malay and Tamil columns. Keep this consistent with the main widget's runtime translation functions. |
@@ -165,17 +162,77 @@ Right-button dragging captures one pointer and applies its local movement to bot
 
 | Location | Purpose |
 |---|---|
-| `Source/Team01_Kiosk/RailRouteMap.h` / `.cpp` | Map rendering, pointer handling, route fitting, station hit testing and routing. |
-| `Content/Data/Kiosk/DA_KioskRailNetwork` | Editable, packaged network: 180 stations, positions, connections, line colours, bend points and artwork. |
+| `Content/UI/Kiosk/Blueprint/WBP_KioskRouteMap` | Blueprint OnPaint, pointer handling, route fitting, label placement and station hit testing. |
+| `Content/UI/Kiosk/Blueprint/BP_KioskRailNetwork` | Blueprint route search, including transfer penalties. |
+| `Content/Data/Kiosk/DA_KioskRailNetwork_BP` | Editable, packaged network: 180 stations, positions, connections, line colours, bend points and artwork. |
 | `Content/Data/Kiosk/KioskMapStations.csv` | Source station coordinates in the original artwork's 1600 x 1600 design space. |
 | `Content/Data/Kiosk/KioskMapConnections.csv` | Source connections, colours, bend points and estimated traversal costs. |
 | `RefreshRouteMap`, `MapApplyStation`, `MapConfirm` | Passing journey state to the map, accepting station clicks and confirming the trip. |
 
-Routes minimise estimated travel cost across the project's existing station snapshot, with two minutes per connection and a four-minute line-change penalty. Incoming line is part of the search state, so interchange choices are compared correctly. These are prototype estimates, not live service times. The network excludes future stations that are present only in the background artwork. Edit `DA_KioskRailNetwork` to change runtime data; the CSV files document its source and do not automatically reimport it.
+Routes minimise estimated travel cost across the project's existing station snapshot, with two minutes per connection and a four-minute line-change penalty. Incoming line is part of the search state, so interchange choices are compared correctly. These are prototype estimates, not live service times. The network excludes future stations that are present only in the background artwork. Edit `DA_KioskRailNetwork_BP` to change runtime data; the CSV files document its source and do not automatically reimport it.
 
-`StationQuery` is directly editable in the destination strip of DestinationMap and JourneyMap. `OpenMapSearchResults` preserves typed text when showing filtered station results. Both complete station fields, including their search icons, open search on every map screen. The journey details screens hide the inline input but keep their search fields and map stations clickable. Selecting another station updates the journey and fits the new route; panning and zooming remain available.
+Clicking either the Start Location or Destination caption, field or search icon on DestinationMap and JourneyMap opens the existing on-screen keyboard and station options. `OpenStartKeyboard` and `OpenDestinationKeyboard` cover those map-only fields; `RefreshMapSearchField` hides them on the search pages so `StationQuery` and the keyboard remain usable. `OpenMapSearchResults` preserves typed text when showing filtered station results. Both complete station fields, including their search icons, open search on every map screen. The journey details screens hide the inline input but keep their search fields and map stations clickable. Selecting another station updates the journey and fits the new route; panning and zooming remain available.
 
-The automation tests `Kiosk.RailMap.TransferAwareRouting` and `Kiosk.RailMap.DiagonalPointerMovement` cover interchange costs, invalid/disconnected endpoints, reverse routes, diagonal movement at non-unit UI scale, release and cursor-anchored zoom. Also verify the map in PIE with real station selections and all four languages.
+Blueprint routing, map interaction and station-filter verification results are retained in `Saved/BlueprintConversion/`. Also verify the map in PIE with real station selections and all four languages.
+
+### Blue kiosks K1-K5
+
+In `L_Island`, K1-K5 use the supplied turquoise housing and one attached `BP_KioskTerminal` each. Their housing centres are at X = -400, -200, 0, 200 and 400 cm: 200 cm between centres and approximately 87.04 cm between housings. All five match the reference model at scale 1: 112.96 cm wide and 134.35 cm high, with their bases at Z = 63.95 cm, matching its mounting height. Move the parent K1-K5 actor to move its screen and devices together. The housing material is the project asset `Content/Materials/M_BaseColor_Turquoise`.
+
+Edit the terminal Blueprint's `Model_...` components for the visible hardware. The hidden `...3D` components are interaction targets and must stay aligned with the model. The lower reader accepts the transit card; the upper reader accepts card/phone interactions; the payment keypad accepts the card payment interaction. The green help button opens assistance, and the cash slot receives automatically animated notes. Ticket, receipt and change collection use the left, centre and right sections of the bottom opening. `InteractiveScreen` replaces the model's striped screen placeholder.
+
+`BP_KioskSession` shares transit balance and collected-document records across all five terminals and directs input to the kiosk the player approaches or aims at. Input stays with the current kiosk while its screen or an automatic action is active. Pending transactions and dispensed items stay at their own kiosk. Screen and payment calculations remain in Blueprints.
+
+`KioskPresentationBP` on `BP_KioskTerminal` controls presentation at runtime. All 22 screens fade in on navigation. It also cycles the language/assistance prompts, brings in the ticketing options, blinks the empty station-search cursor, fades updated station results, demonstrates a transit-card scan, animates the success-screen ticket and flap, and gently animates the assistance icon. The QR and collection illustrations follow the supplied November 18 recordings: phone approach/confirmation/withdrawal, then ticket drop and a door that slides upward. Other Designer payment animations remain in place. Both start and destination keyboards use the same navigation behavior.
+
+The EZ-Link card is placed on the lower reader and stays there during amount selection and bank-card, QR or cash payment. The hand withdraws empty after placement. After the top-up settles, it reaches back to retrieve the card. Changing payment method or requesting assistance keeps the card in place; cancelling the transaction or leaving retrieves it before unlocking the camera.
+
+Physical output drops into the bottom tray over 0.65 seconds. The glass collection door slides straight upward over 0.4 seconds, preserving its rotation. Collection starts after the opening completes; the door stays open until the pickup animation finishes, then slides closed. A refresh or partial collection does not restart the drop. Adjust timings and `FlapSlideDistance` on `KioskPresentationBP`.
+
+`KioskActionsBP` on `BP_KioskTerminal` runs the automatic demonstrations. Click the screen to move into a fixed reading view, then choose the purchase and payment method. Press Escape to return to movement. Right-drag remains available for panning the map. The player never selects or equips a card, phone or note. Entering transit-card balance places the EZ-Link card on the lower reader. Bank-card payment taps the upper reader, QR payment presents a phone, and cash payment inserts the required $50/$10/$5 notes in sequence. Existing Blueprint payment functions run at physical contact. Backing out before contact cancels the action without charging. A procedural Manny right arm reaches, grips and withdraws with each item.
+
+After dispensing, the hand collects tickets, receipts and change automatically and a short message appears, such as "x1 ticket collected". The green physical help button opens the calling-for-assistance screen; it can be clicked with the cursor or targeted with F. Blue on-screen assistance buttons and their click targets are hidden. The calling screen's Back button remains available. There is no inventory HUD or equipment selection.
+
+Physical card and ticket props reuse the project's Figma artwork, including the vector EZ-Link design and the ticket/day-pass exports. The extra $10 and $50 images are imported under `Content/UI/Kiosk/Textures/Payment`; their original SPECIMEN labels remain. Download sources are recorded in `ArtSource/Kiosk/PaymentReferences/Sources.txt`. The action graphs are in `BP_KioskActions`; prop/feedback widgets are `WBP_KioskProp` and `WBP_KioskCollectionFeedback`, under `Content/UI/Kiosk/Blueprint/`.
+
+The four white bars on the upper reader have separate material slots in `SM_KioskReaderFourLights`, preserving the original geometry. During card processing they turn green one at a time, reaching all four before the existing payment timer completes. Completion/cancellation resets them to white. Accepted card/phone use flashes the matching indicator green; accepted cash keeps its indicator green during payment. The collection surround stays green while output is pending and returns white when empty. `M_KioskDeviceLight` provides per-terminal dynamic colour, so using one kiosk does not change another kiosk's lights.
+
+The shared screen inherits the engine UserWidget class; `BP_KioskScreenLogic` holds its editable shared behavior. Day-pass dates toggle independently and remain selected while changing months. A new purchase starts with today selected; an empty selection cannot proceed. One pass covers exactly the selected days, including nonconsecutive dates, at the existing $15 daily fare per selected day. Checkout shows the earliest activation day and final expiry at midnight after the last selected day. The extra selected-date list is hidden at the user’s request; the pass still stores all selected dates. `BP_KioskDocument` inherits the engine Actor class and snapshots `ValidPassDates`; validation checks membership rather than accepting the entire span. Starting another purchase cannot change an issued pass.
+
+The calendar places activation/expiry above the description, with smaller labels and larger dates. Its panel sizes and typography use updated Figma calendar frame `1094:2270`; selected dates share one blue and Confirm becomes green when a date is selected. The top-up calculator uses a 900 x 740 panel, 260 x 92 number buttons and rounded corners. `F_KioskMultilingual` combines Roboto, Noto Sans CJK SC and the existing Tamil faces across screen, translation and inventory text. The Chinese source font and SIL Open Font License are in `ArtSource/Fonts/NotoSansCJK`.
+### Kiosk screen and camera updates (18 November)
+
+`BP_KioskScreenLogic` keeps the calculator and station results consistent with the kiosk theme. Both search fields open the keyboard and show matching stations immediately as the player types. A Filter button toggles the colour-coded line choices; choosing a line narrows the results, and Clear filter restores search across all lines while keeping the query. Interchanges appear on each applicable line. Map/search header names sit directly beside the train logo and the visible line badges, without reserving space for absent interchange codes. The map Confirm control is green and opens checkout. The four cycling language prompts use a consistent, full-opacity 38-point font.
+
+`BP_KioskScreenLogic.RefreshReferenceTheme` applies dark-blue payment buttons and dark-blue/white selected recharge amounts after language and state refreshes. It uses the original imported MRT and LRT pictograms, rounded code capsules, and the supplied checkout frame dimensions and typography. `WBP_KioskTripSlider` implements the lavender track, sliding blue selection and straight/curved arrow icons, with pointer dragging and keyboard selection. Payment hit targets follow their visible buttons. Configured fares and balances are rounded to the nearest whole dollar before calculation; payments, change and receipt labels display whole dollars with two decimal places (for example `$2.00`). Clicking an EZ-Link header logo returns to language selection when no payment or uncollected output is active. The physical green help button remains the assistance entry point; cancel, receipt, and map confirmation groups are retained even where the exported Figma widget name contains `Assistance`.
+
+`WBP_KioskCrosshair` is a small white cross with a dark outline at the centre of the viewport. `BP_KioskSession.UpdateCrosshair` shows it during free movement and hides it while the kiosk camera is locked. `AimHitsScreen` checks the visible screen rectangle and rejects nearer obstacles; left-click enters the kiosk and Escape leaves. Both old E-key prompt components and their prompt widget are hidden.
+
+`BP_KioskSession` positions the player and camera to frame the screen, upper payment readers and the complete physical green help button with a margin. The camera explicitly maintains horizontal FOV so the framing calculation stays correct across viewport aspect ratios. During a physical action, it shifts the view when necessary to include the reader or collection tray, waits for the camera to settle, and restores the reading view afterward. The updated local `Tech Design MRT KIOSK (1).fig` is the design source, with trip checkout frames `1127:2707` and `1153:2693` providing the native 1200 x 900 measurements. The original image UV crops are retained for the MRT/LRT and payment logos. The two supplied recordings define the QR and collection illustrations. Figma uses SF Pro; because that font was not supplied or installed, the project retains its multilingual font with the reference sizes and spacing. The letter shapes therefore differ from SF Pro. At the user's request, the grey title bars keep their previous Unreal scaling: trip details 1.6, day-pass details 1.8, top-up title 1.6 (matching trip details), and its subtitle 1.1.
+
+Background verification and screen renders are retained in `Saved/KioskUX/`; widget backups are in its `Backup/` directory. No desktop control is required to run the verification helper.
+
+### Editable behavior graphs
+
+All assets in this table are in `Content/UI/Kiosk/Blueprint/`. Open **Graph**, then select a function in **My Blueprint**. Functions are grouped into categories, with descriptions on their entry nodes. The game uses ordinary Blueprint nodes; no node calls the old project C++ module.
+
+| Blueprint | Functions/settings to edit |
+|---|---|
+| `BP_KioskSession` | `EnterScreen`, `UpdateView`, `FrameCollection`, `LeaveScreen`; input focus, camera locking and shared account state. |
+| `BP_KioskCameraMath` | `ScreenView`, `CollectionView`, action framing and blend calculations. |
+| `BP_KioskActions` | `StartAction`, `Animate`, `CommitContact`, automatic payment/collection selection and EZ-Link retention. |
+| `BP_KioskHandRig` | `PoseHand`; reaching/gripping arm pose and hidden body bones. |
+| `BP_KioskPresentation` | Screen animations, `AnimateOutputs`, `AnimateLights`; drop/open timing defaults and sliding-door distance. |
+| `BP_KioskScreenLogic` | `RefreshLineSearch`, `RefreshReferenceTheme`, calendar selection, typography, header navigation and button binding. |
+| `BP_KioskRules`, `BP_KioskCalendarRules` | Money formatting, station filters, pass pricing, selected dates and validity. |
+| `WBP_KioskRouteMap`, `BP_KioskRailNetwork` | Map drawing/input and route calculation. |
+| `WBP_KioskTripSlider` | Designer track/thumb, OnPaint arrow icons, pointer/keyboard selection and animated thumb. |
+| `WBP_KioskProp`, `WBP_KioskCollectionFeedback` | Physical card/note/ticket artwork and the collected-item toast. |
+| `BP_KioskInteraction` | Terminal registration and the connection to physical device actions. |
+
+`BP_KioskTerminal` has the `KioskPresentationBP` and `KioskActionsBP` components. Existing transaction and translation graphs remain in `Interaction/WBP_KioskInteractive`; its shared helper functions forward to `BP_KioskScreenLogic`. `Interaction/BP_KioskDocument.IsValidOnDate` validates the dates saved on each purchased pass. The five level kiosks keep their previous transforms and hardware components.
+
+Conversion tools, previous C++ files and recovery copies are retained locally under `Saved/BlueprintConversion/`, outside the active project source. They are not required to run or edit the Blueprint game. Keep that folder for recovery; it is excluded from Git.
 
 ### Before handing off a kiosk change
 
